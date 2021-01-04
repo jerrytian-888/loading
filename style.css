@@ -6,15 +6,17 @@
 body {
     box-sizing: border-box;
     /* position: relative; */
+    background: linear-gradient();
 }
 
 .container {
     position: relative;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
     width: 100%;
     min-height: 100vh;
+    margin: 20px;
 }
 
 .container .ring {
@@ -23,7 +25,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 300px;
-    min-height: 300px;
+    height: 300px;
     background: #111;
 }
 
@@ -32,10 +34,10 @@ body {
     width: 100px;
     height: 100px;
     border: 8px solid rgba(0, 0, 0, .3);
-    border-top: 8px solid #fff000;
-    border-right: 8px solid #fff000;
+    border-top: 8px solid rgb(255, 238, 0);
+    border-right: 8px solid rgb(255, 238, 0);
     border-radius: 50%;
-    animation: movecycie 2s linear infinite;
+    animation: movecycle 2s linear infinite;
 }
 
 .container .ring .loading::after {
@@ -50,11 +52,137 @@ body {
     box-shadow: 0 0 10px rgb(241, 241, 65), 0 0 20px rgb(241, 241, 65), 0 0 40px rgb(241, 241, 65), 0 0 60px rgb(241, 241, 65), 0 0 80px rgb(241, 241, 65);
 }
 
-@keyframes movecycie {
+@keyframes movecycle {
     0% {
         transform: rotate(360deg);
     }
     100% {
         transform: rotate(0deg);
+    }
+}
+
+.container .cycleBall {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    background-color: #111222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: animateBg 2s linear infinite;
+}
+
+@keyframes animateBg {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+.container .cycleBall span {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    transform: rotate(calc(18deg * var(--i)));
+}
+
+.container .cycleBall span::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: rgb(51, 184, 224);
+    box-shadow: 0 0 10px rgb(50, 233, 224), 0 0 20px rgb(50, 233, 224), 0 0 40px rgb(50, 233, 224), 0 0 60px rgb(50, 233, 224), 0 0 80px rgb(50, 233, 224), 0 0 100px rgb(50, 233, 224);
+    animation: animate 2s linear infinite;
+    animation-delay: calc(.1s * var(--i));
+}
+
+@keyframes animate {
+    0% {
+        transform: scale(1);
+    }
+    80%,
+    100% {
+        transform: scale(0);
+    }
+}
+
+.container .lines {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(to bottom, #36363a, #111222);
+}
+
+.container .lines .linesDiv {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 居中：以上的代码只能左右居中，不明白为什么？要两段代码都写才可以，只有下面都代码也不会居中！ */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 30px;
+    /* 倒影 */
+    -webkit-box-reflect: below 10px linear-gradient(to top, rgba(255, 255, 255, 0.3) 0%, transparent 70%, transparent 100%);
+}
+
+.container .lines span {
+    position: relative;
+    /* display: inline-block; */
+    width: 4px;
+    height: 15px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: skyblue;
+    margin-right: 5px;
+    animation: linesAnimate .5s linear infinite;
+    animation-delay: calc(.05s * var(--i));
+}
+
+.container .lines span:nth-child(1),
+.container .lines span:nth-child(7) {
+    height: 20px;
+    top: -14px;
+    /* animation-delay: .05s; */
+}
+
+.container .lines span:nth-child(2),
+.container .lines span:nth-child(6) {
+    height: 35px;
+    top: -12px;
+    /* animation-delay: .05s; */
+}
+
+.container .lines span:nth-child(3),
+.container .lines span:nth-child(5) {
+    height: 40px;
+    top: -6px;
+    /* animation-delay: .5s; */
+}
+
+.container .lines span:nth-child(4) {
+    height: 45px;
+    /* animation-delay: .6s; */
+}
+
+@keyframes linesAnimate {
+    0%,
+    100% {
+        filter: hue-rotate(0deg);
+        transform: translateY(0px);
+    }
+    50% {
+        filter: hue-rotate(360deg);
+        transform: translateY(-8px);
     }
 }
